@@ -1,0 +1,8 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div style="text-align: center; margin-top: 100px;">
+    <h1 style="color: var(--accent-color);">Reservation Confirmed</h1>
+    <p>Your seats for <strong>{{ match.title }}</strong> are now secured.</p>
+    <a href="{% url 'event_list' %}" style="color: var(--primary-text); text-decoration: underline;">Back to Events</a>
+</div>
+{% endblock %}

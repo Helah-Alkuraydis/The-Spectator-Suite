@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div style="max-width: 600px; margin: 80px auto; text-align: center;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 30px;">The Vibe Checker</h1>
+    
+    {% if not recommendation %}
+    <form method="POST" style="background: white; padding: 40px; border: 1px solid #eee;">
+        {% csrf_token %}
+        <div style="margin-bottom: 25px; text-align: left;">
+            <label style="display: block; margin-bottom: 10px; font-weight: 700;">Select Sport</label>
+            <select name="sport" style="width: 100%; padding: 12px; border: 1px solid #ddd;">
+                <option value="Tennis">Tennis (The Elegant Game)</option>
+                <option value="Football">Football (The Passionate Game)</option>
+            </select>
+        </div>
+        
+        <div style="margin-bottom: 30px; text-align: left;">
+            <label style="display: block; margin-bottom: 10px; font-weight: 700;">Your Current Mood</label>
+            <select name="mood" style="width: 100%; padding: 12px; border: 1px solid #ddd;">
+                <option value="Relaxed">Relaxed & Quiet</option>
+                <option value="Energetic">Energetic & Loud</option>
+            </select>
+        </div>
+        
+        <button type="submit" style="width: 100%; background: var(--primary-text); color: white; padding: 15px; border: none; cursor: pointer; letter-spacing: 2px;">
+            CURATE MY VIBE
+        </button>
+    </form>
+    {% else %}
+    <div style="background: white; padding: 50px; border: 1px solid var(--accent-color); animation: fadeIn 1s;">
+        <h2 style="color: var(--accent-color);">Your Curated Setup</h2>
+        <p style="font-size: 1.4rem; margin: 20px 0;">"{{ recommendation }}"</p>
+        <a href="/vibe" style="color: var(--secondary-text); text-decoration: underline;">Try again</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

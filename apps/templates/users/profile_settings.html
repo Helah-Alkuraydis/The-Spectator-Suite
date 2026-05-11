@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div style="max-width: 600px; margin: 60px auto; padding: 40px; background: white; border: 1px solid #f0f0f0; box-shadow: 0 10px 30px rgba(0,0,0,0.03);">
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 30px; border-bottom: 1px solid #eee; padding-bottom: 15px;">Account Settings</h2>
+
+    <form method="POST" style="margin-bottom: 50px;">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 8px;">Full Name</label>
+            <input type="text" name="full_name" value="{{ user.first_name }}" required style="width: 100%; padding: 12px; border: 1px solid #ddd; outline: none;">
+        </div>
+        
+        <div style="margin-bottom: 30px;">
+            <label style="display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 8px;">Email Address</label>
+            <input type="email" name="email" value="{{ user.email }}" required style="width: 100%; padding: 12px; border: 1px solid #ddd; outline: none;">
+        </div>
+
+        <button type="submit" style="background: #1A2421; color: #D4AF37; padding: 12px 30px; border: none; font-weight: 700; cursor: pointer; letter-spacing: 1px;">
+            SAVE CHANGES
+        </button>
+    </form>
+
+    <div style="background: #fff5f5; border: 1px solid #ffebeb; padding: 30px; margin-top: 40px;">
+        <h3 style="color: #cc0000; margin-top: 0; font-size: 1.1rem;">Danger Zone</h3>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">Deleting your account will remove all your booking history and personal data permanently.</p>
+        
+        <form action="{% url 'delete_account' %}" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+            {% csrf_token %}
+            <button type="submit" style="background: #cc0000; color: white; padding: 10px 20px; border: none; font-weight: 700; cursor: pointer; border-radius: 2px;">
+                DELETE ACCOUNT
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

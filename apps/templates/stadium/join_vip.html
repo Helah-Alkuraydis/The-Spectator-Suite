@@ -1,0 +1,40 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div style="max-width: 500px; margin: 60px auto;">
+    <h1 style="text-align: center; font-size: 2.5rem;">The VIP Club</h1>
+    <p style="text-align: center; color: var(--secondary-text); margin-bottom: 40px;">Join an exclusive circle of sports connoisseurs.</p>
+
+    {% if submitted %}
+        <div style="background: #e6fffa; border: 1px solid var(--accent-color); padding: 30px; text-align: center;">
+            <h2 style="color: var(--accent-color);">Welcome to the Suite!</h2>
+            <p>Your application is being reviewed. Expect an elegant invitation soon.</p>
+        </div>
+    {% else %}
+        <form method="POST" style="display: flex; flex-direction: column; gap: 20px;">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase;">{{ field.label }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <button type="submit" style="background: var(--accent-color); color: white; padding: 15px; border: none; cursor: pointer; font-weight: 700; margin-top: 10px;">
+                APPLY FOR MEMBERSHIP
+            </button>
+        </form>
+    {% endif %}
+</div>
+
+<style>
+    input, select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ddd;
+        background: white;
+        font-family: inherit;
+        box-sizing: border-box;
+    }
+    input:focus { border-color: var(--accent-color); outline: none; }
+</style>
+{% endblock %}

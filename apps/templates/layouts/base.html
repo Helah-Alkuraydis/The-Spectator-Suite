@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Spectator's Suite{% endblock %}</title>
+    <!-- Google Fonts for Luxury Feel -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #F9F8F6;
+            /* Ivory/Cream */
+            --primary-text: #1A2421;
+            /* Deep Forest Green-Black */
+            --accent-color: #2D5A27;
+            /* Classic Court Green */
+            --secondary-text: #6B7280;
+            /* Soft Grey */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--primary-text);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        .logo {
+            font-family: 'Playfair Display', serif;
+            letter-spacing: -1px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            background-color: transparent;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--primary-text);
+            font-size: 0.9rem;
+            font-weight: 400;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            padding: 0 10%;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--primary-text);
+            font-size: 0.9rem;
+            font-weight: 400;
+            position: relative;
+            padding: 5px 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 2px;
+            margin: 5px auto;
+            background-color: var(--primary-text);
+            transition: all 0.3s ease-in-out;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-list {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--bg-color);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+                z-index: 100;
+            }
+
+            .nav-list.active {
+                left: 0;
+            }
+        }
+
+        #mobile-menu.is-active .bar:nth-child(2) {
+            opacity: 0;
+        }
+
+        #mobile-menu.is-active .bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        #mobile-menu.is-active .bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">THE SPECTATOR'S SUITE</div>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        {% if messages %}
+        {% for message in messages %}
+        <div style="padding:15px; background:#f4f4f4; border-left:4px solid var(--accent-color); margin-bottom:20px;">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <ul class="nav-list">
+            <li><a href="/" class="nav-link">Home</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="/stadium/my_bookings" class="nav-link">My Tickets</a></li>
+            <li><a href="/stadium/events" class="nav-link">Events</a></li>
+            <li><a href="{% url 'profile_settings' %}" class="nav-link">Settings</a></li>
+            <li><a href="/vibe" class="nav-link">Philosophy</a></li>
+            <li><a href="{% url 'logout' %}" class="nav-link">Logout ({{ user.username }})</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}" class="nav-link">Login</a></li>
+            <li><a href="{% url 'register' %}" class="nav-link">Register</a></li>
+            <li><a href="/stadium/join" class="nav-link">VIP Club</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    <div class="container">
+        {% block content %}
+        <!-- Content from other pages will go here -->
+        {% endblock %}
+    </div>
+
+    <script>
+        const menu = document.querySelector('#mobile-menu');
+        const menuLinks = document.querySelector('.nav-list');
+
+        menu.addEventListener('click', function () {
+            menuLinks.classList.toggle('active');
+            menu.classList.toggle('is-active');
+        });
+    </script>
+</body>
+
+<footer style="margin-top: 100px; padding: 40px; border-top: 1px solid #eee; text-align: center;">
+    <p style="font-size: 0.8rem; color: #474646;">&copy; 2026 THE SPECTATOR'S SUITE</p>
+    <a href="{% url 'dashboard' %}"
+        style="font-size: 0.7rem; color: #005d28; text-decoration: underline; font-weight: 600; ">Staff Portal</a>
+</footer>
+
+</html>

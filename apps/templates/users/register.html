@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+{% block content %}
+<div
+    style="max-width: 450px; margin: 80px auto; background: white; padding: 50px; border: 1px solid #f0f0f0; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-radius: 2px;">
+    <h2 style="font-family: 'Playfair Display', serif; text-align: center; font-size: 2rem; margin-bottom: 10px;">Join
+        the Suite</h2>
+    <p style="text-align: center; color: #888; font-size: 0.9rem; margin-bottom: 30px;">Experience the height of
+        sporting luxury.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div style="margin-bottom: 20px;">
+            <label style="display: block; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 8px;">Full
+                Name</label>
+            <input type="text" name="full_name" required placeholder="Enter your full name"
+                style="width: 100%; padding: 12px; border: 1px solid #ddd; outline: none;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label
+                style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Email
+                Address</label>
+            <input type="email" name="email" required
+                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 0; outline: none;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label
+                style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Password</label>
+            <input type="password" name="password" required
+                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 0; outline: none;">
+        </div>
+        <div style="margin-bottom: 30px;">
+            <label
+                style="display: block; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Confirm
+                Password</label>
+            <input type="password" name="confirm_password" required
+                style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 0; outline: none;">
+        </div>
+        <button type="submit"
+            style="width: 100%; background: #1A2421; color: #D4AF37; padding: 15px; border: none; font-weight: 700; letter-spacing: 2px; cursor: pointer;">REGISTER</button>
+    </form>
+
+    <div style="margin-top: 30px; text-align: center; border-top: 1px solid #eee; padding-top: 20px;">
+        <p style="font-size: 0.9rem; color: #666;">Already a member?
+            <a href="{% url 'login' %}" style="color: #1A2421; font-weight: 700; text-decoration: none;">Sign In</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

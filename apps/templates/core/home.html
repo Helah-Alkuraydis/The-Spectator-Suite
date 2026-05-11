@@ -1,0 +1,34 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}Welcome | The Spectator's Suite{% endblock %}
+
+{% block content %}
+<main style="display: flex; align-items: center; min-height: 80vh;">
+    <div style="flex: 1;">
+        <span style="color: var(--accent-color); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px; font-weight: 700;">
+            The Spectator's Suite
+        </span>
+        <h1 style="font-size: 4.5rem; line-height: 1.1; margin: 20px 0;">
+            Experience Sport <br> Through an Elegant Lens.
+        </h1>
+        <p style="color: var(--secondary-text); max-width: 500px; font-size: 1.1rem; margin-bottom: 40px;">
+            A curated lifestyle platform for those who appreciate the quiet intensity of a Grand Slam and the rhythmic strategy of the pitch.
+        </p>
+        
+        <div style="display: flex; gap: 20px;">
+            <a href="/stadium/events" style="background-color: var(--primary-text); color: white; padding: 15px 40px; text-decoration: none; font-size: 0.9rem; border-radius: 2px;">
+                View Events
+            </a>
+            <a href="/vibe" style="border: 1px solid #ddd; color: var(--primary-text); padding: 15px 40px; text-decoration: none; font-size: 0.9rem; border-radius: 2px;">
+                The Philosophy
+            </a>
+        </div>
+    </div>
+    
+    <div style="flex: 1; text-align: right;">
+        <div style="width: 400px; height: 550px; background-color: #E5E7EB; display: inline-block; border-radius: 200px 200px 0 0; overflow: hidden;">
+            <img src="https://media.desenio.com/site_images/685d81d6caacebb10a60c352_321407224_18597-5.jpg" alt="Tennis" style=" height:100%; object-fit:cover; opacity: 0.8;">
+        </div>
+    </div>
+</main>
+{% endblock %}
